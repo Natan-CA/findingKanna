@@ -1,0 +1,33 @@
+
+body {
+    padding: 0px;
+    margin: 0px;
+}
+
+.background {
+    background-image: url('assets/bg.jpg');
+    background-size: cover;
+    width: 1200px;
+    height: 700px;
+    border-style: solid;
+    border-width: thin;
+}
+
+#vicText {
+    left: 350px;
+    position: absolute;
+}
+
+#kanna {
+    width: 100px;
+    height: 80px;
+}
+
+#centroid {
+    position:absolute; 
+    display: none;
+}
+
+.hide {
+    display: none;
+}

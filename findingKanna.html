@@ -2,136 +2,28 @@
 <html lang="pt-br">
 <head>
 	<meta charset="UTF-8">
-	<title>Procurando Kanna </title>
+    <title>Procurando Kanna </title>
+    <script src="script.js"></script>
+    <link href="styles.css" rel="stylesheet"/>
+    <link rel="shortcut icon" href="assets/kanna.ico" />
 </head>
 
-<body style="padding: 0px; margin: 0px;">
+<body>
 
     <!-- loading voz da kanna -->
-    <audio id="kannaSound">
+    <audio id="kannaSound" preload="auto">
         <source src="assets/Kanna.mp3" type="audio/mpeg"/>
     </audio>
 
-    <div onclick="getCoords(event); playSound()"
-        style="background-image: url('assets/bg.jpg');
-            background-size: cover;
-            width: 1200px;
-            height: 700px;
-            border-style: solid;
-            border-width: thin;">
+    <div class="background" onclick="getCoords(event); playSound()">
 
-        <h3 id="vicText" style="display: none; left: 350px; position: absolute; ">
-            Você Ganhou! Para jogar novamente atualize a página.
-        </h3>
+        <h3 class="hide" id="vicText"></h3>
 
-        <img src="assets/kanna.png" id="kanna" onload="createKanna()" onclick=""
-            style=" width: 100px;
-                    height: 80px;
-                    display: none;"/>
+        <img src="assets/kanna.png" class="hide" id="kanna"  onload="createKanna()"/>
 
-        <img src="https://place-hold.it/5x5" id="centroid" style="position:absolute; display: none;"/>
+        <img src="https://place-hold.it/5x5" id="centroid"/>
         
     </div>
 
-    <script>
-        var vitoria = false;
-
-        var kannaX;
-        var kannaY;
-
-        var audio = document.getElementById("kannaSound");
-
-        var mouseClick = 0;
-
-        // função que  executa o audio e conta o número de clicks
-        function playSound(){
-            if(!vitoria){
-                audio.load();
-                audio.play();
-                mouseClick++;
-            }
-            // mensagem de vitória
-            else{
-                document.getElementById("vicText").style.display = "";
-                document.getElementById("vicText").innerHTML = `Você achou Kanna com ${mouseClick} clicks!
-                    Para jogar novamente atualiza a página.` 
-            }             
-        }
-
-        function changeVolume(mouseX, mouseY ,kannaX, kannaY){
-
-            // calculando distancia entre 2 pontos. Mouse e centroide da imagem
-            distX = Math.pow(kannaX - mouseX, 2);
-            distY = Math.pow(kannaY - mouseY, 2);
-            distTotal = Math.round(Math.sqrt(distX + distY));
-
-            if(distTotal <= 50) {
-                audio.volume = 1.0;
-                document.getElementById("kanna").style.display = "";
-                playSound();
-                vitoria = true;
-            }
-            else {
-                //calculando o valor de volume com base na dist entr os pontos
-                console.log("continue tentando");
-                vol = (100 * 60)/distTotal;
-                vol = vol / 100;
-                if (vol > 1) vol = 1;
-                audio.volume = vol < 0.09  ? 0.1 : vol ;                      
-            }
-        }
-
-        function getCoords(e) {
-            //pegando coordenadas do mouse
-            var x = event.clientX;
-            var y = event.clientY;
-            // var coords = "X coords: " + x + ", Y coords: " + y;
-            // console.log(coords);
-
-            //pegando a coordenada X do centroide da imagem da kanna
-            var centroidKannaX = document.getElementById("centroid").style.left;
-            centroidKannaX = parseInt(centroidKannaX.replace("px", ""));
-        
-            //pegando a coordenada Y do centroide da imagem da kanna
-            var centroidKannaY = document.getElementById("centroid").style.top;
-            centroidKannaY = parseInt(centroidKannaY.replace("px", ""));
-            
-            changeVolume(x, y, centroidKannaX, centroidKannaY);
-        }
-
-        // gerando posição X aleatória
-        function genX(){
-            var x = Math.floor(Math.random() * 1100);
-            return x;
-        }
-
-        // gerando posição Y aleatória
-        function genY(){
-            var y = Math.floor(Math.random() * 620);
-            return y;        
-        }
-
-        /* injeta valores aleatórios para X & Y da imagem da kanna */
-        function createKanna(){
-            //console.log("chamou");
-            document.getElementById("kanna").style.marginTop = genY()+"px";
-            document.getElementById("kanna").style.marginLeft = genX()+"px";
-
-            // Calculando as coordenadas do centroide da imagem na pos X
-            kannaX = document.getElementById("kanna").style.marginLeft;
-            kannaX = parseInt(kannaX.replace("px", ""));
-            kannaX = kannaX + 48;
-            
-            // Calculando as coordenadas do centroide da imagem na pos Y
-            kannaY = document.getElementById("kanna").style.marginTop;
-            kannaY = parseInt(kannaY.replace("px", ""));
-            kannaY = kannaY + 40;
-
-            // injetando os novos valores
-            document.getElementById("centroid").style.top = `${kannaY}px`;
-            document.getElementById("centroid").style.left = `${kannaX}px`;
-        }
-
-    </script>
 </body>
 </html>
