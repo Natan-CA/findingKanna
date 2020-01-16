@@ -1,5 +1,5 @@
 # kannaFinder
-Simples jogo de browser feito utilizando JavaScript no qual você utiliza o som para achar a personagem invisivel.
+Simples jogo de browser feito para praticar minha programação em JavaScript, nele você utiliza o som para achar a personagem invisivel.
 
 A cada clique dentro da imagem a voz de kanna será tocada, e com base na distância 
 em que ela se encontra, o volume da voz será maior ou menor. 
